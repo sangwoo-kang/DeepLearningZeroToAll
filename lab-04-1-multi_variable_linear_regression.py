@@ -2,6 +2,8 @@
 import tensorflow as tf
 tf.set_random_seed(777)  # for reproducibility
 
+# 중간고사 성적이라고...
+# data가 많을수록 Y를 예측하는 능력이 높아진다.
 x1_data = [73., 93., 89., 96., 73.]
 x2_data = [80., 88., 91., 98., 66.]
 x3_data = [75., 93., 90., 100., 70.]
@@ -9,12 +11,14 @@ x3_data = [75., 93., 90., 100., 70.]
 y_data = [152., 185., 180., 196., 142.]
 
 # placeholders for a tensor that will be always fed.
+# X가 많아질수록 코드가 더러워진다...
 x1 = tf.placeholder(tf.float32)
 x2 = tf.placeholder(tf.float32)
 x3 = tf.placeholder(tf.float32)
 
 Y = tf.placeholder(tf.float32)
 
+# 하나의 값으로 변수 생성
 w1 = tf.Variable(tf.random_normal([1]), name='weight1')
 w2 = tf.Variable(tf.random_normal([1]), name='weight2')
 w3 = tf.Variable(tf.random_normal([1]), name='weight3')
@@ -26,6 +30,7 @@ hypothesis = x1 * w1 + x2 * w2 + x3 * w3 + b
 cost = tf.reduce_mean(tf.square(hypothesis - Y))
 
 # Minimize. Need a very small learning rate for this data set
+# TODO learning_rate이 의미하는게 뭐지??
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=1e-5)
 train = optimizer.minimize(cost)
 
